@@ -1,6 +1,6 @@
-% function detecting potential information signs in given image
+% function detecting potential prohibition signs in given image
 % returns binary image of potential information signs (1) and background (0)
-function bin_info = detect_info_signs(im)
+function bin_info = detect_proh_signs(im)
 
 % set apart certain color masks
 r = im(:,:,1);
@@ -13,9 +13,9 @@ b = im(:,:,3);
 % transforming image to 1-dimension gray scale
 my_bin = rgb2gray(im);
 % formula to take information signs by color
-formulas_value = (r+g)./(2.*b);
+formulas_value = (g+b)./(2.*r);
 % threshold determined empirically
-threshhold = 0.45;
+threshhold = 0.33;
 % binarize image using threshold
 my_bin(formulas_value <= threshhold) = 255;
 my_bin(formulas_value > threshhold) = 0;

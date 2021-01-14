@@ -1,6 +1,6 @@
-% function detecting potential information signs in given image
+% function detecting potential regulatory signs in given image
 % returns binary image of potential information signs (1) and background (0)
-function bin_info = detect_info_signs(im)
+function bin_info = detect_regul_signs(im)
 
 % set apart certain color masks
 r = im(:,:,1);
@@ -15,7 +15,7 @@ my_bin = rgb2gray(im);
 % formula to take information signs by color
 formulas_value = (r+g)./(2.*b);
 % threshold determined empirically
-threshhold = 0.45;
+threshhold = 0.53;
 % binarize image using threshold
 my_bin(formulas_value <= threshhold) = 255;
 my_bin(formulas_value > threshhold) = 0;
