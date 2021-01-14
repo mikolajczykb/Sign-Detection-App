@@ -1,0 +1,31 @@
+BLUE
+info 1:		13	13	251
+info 2:		6	6	252
+info 3:		0	0	255
+info 4:		35	115	200
+info 5:		15	42	110
+info 6:		37	55	105
+
+BLUE
+nakaz 1:	15	0	251
+nakaz 2:	15	0	251
+nakaz 3:	15	0	251
+nakaz 4:	30	128	198
+nakaz 5:	30	70	80
+nakaz 6:	30	130	200
+
+RED / YELLOW
+ostrz 1:	255	5	0	/	255	255	0
+ostrz 2:	255	5	0	/	255	255	0
+ostrz 3:	255	5	0	/	255	255	0
+ostrz 4:	255	50	30	/	255	200	5
+ostrz 5:	230	60	20 	/	225	250	20
+ostrz 6:	140	40	40 	/	200	125 	15
+
+RED
+zakaz 1:	197	38	32
+zakaz 2:	210	0	0
+zakaz 3:	215	20	25
+zakaz 4:	175	70	50
+zakaz 5:	125	40	25
+zakaz 6:	250	0	50

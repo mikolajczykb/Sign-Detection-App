@@ -1,0 +1,73 @@
+clear; clc;
+
+% image reading
+im = double(imread('images/info06.png'));
+
+% information sings service
+info_sings = detect_info_signs(im); % detecting potential information signs
+w = geom_coeffs(info_sings) % calculate gometry coefficients
+
+% function detecting potential information sings in given image
+% returns binary image of potential information signs (1) and background (0)
+function bin_info = detect_info_signs(im)
+
+% set apart certain color masks
+r = im(:,:,1);
+g = im(:,:,2);
+b = im(:,:,3);
+% subplot(2,3,1); imshow(r);
+% subplot(2,3,2); imshow(g);
+% subplot(2,3,3); imshow(b);
+
+% transforming image to 1-dimension gray scale
+my_bin = rgb2gray(im);
+% formula to take information sings by color
+formulas_value = (r+g)./(2.*b);
+% threshold determined empirically
+threshhold = 0.65;
+% binarize image using threshold
+my_bin(formulas_value <= threshhold) = 255;
+my_bin(formulas_value > threshhold) = 0;
+% subplot(2,3,4); imshow(my_bin);
+
+% noise reduction
+my_bin = bwareaopen(my_bin, 50);
+% dilatation to reduce sings' inner part
+bin_info = bwmorph(my_bin, 'dilate', 10);
+% subplot(2,3,5); imshow(bin_info);
+
+end
+
+% function calculating geometry coefficients of objects in given binary image
+function w = geom_coeffs(im)
+
+% label objects
+l = bwlabel(im);
+% subplot(2,3,6); imshow(label2rgb(l));
+
+% calculate how objects there are on image
+n = max(l,[],'all');
+
+% preparing region props and the most valuable coefficients
+a = regionprops(im,'all');
+fun = {@AO5RBlairBliss,@AO5RMalinowska,@AO5RShape,@AO5RHaralick,@AO5RCircularityS,@AO5RCircularityL,@AO5RFeret,@AO5RDanielsson};
+
+% calculate coefficients
+w = zeros(n, length(fun));
+for i=1:n
+    for j=1:length(fun)
+        w(i,j) = fun{j}(a(i).Image);
+    end
+end
+
+% mean value of coefficients
+m = mean(w);
+% standard deviation of coefficients
+s = std(w);
+% result normalization
+stand = (w-m)./s;
+
+% showing unusual coefficients' values
+ot = abs(stand)>2
+
+end
