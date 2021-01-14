@@ -1,8 +1,19 @@
 clear; clc;
 
 % image reading
-im = double(imread('images/nakaz04.png'));
+im = double(imread('images/zakaz02.png'));
+gim = im;
+for i = 1:275
+    for j = 1:275
+       if gim(i,j,1) > 253 & gim(i,j,2) > 253 & gim(i,j,3) > 253
+           gim(i,j,1) = 155;
+           gim(i,j,2) = 85;
+           gim(i,j,3) = 215;
+       end
+    end
+end
 
+imshow(gim);
 % information signs service
 im_cpy = im;
 info_signs = detect_info_signs(im_cpy); % detecting potential information signs

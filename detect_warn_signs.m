@@ -13,7 +13,15 @@ b = im(:,:,3);
 % transforming image to 1-dimension gray scale
 my_bin = rgb2gray(im);
 % formula to take information signs by color
-formulas_value = (g+b)./(2.*r);
+% formulas_value = (g+b)./(2.*r);
+
+g_end = g./(r+0.000001);
+b_end = b./(r+0.000001);
+g_end(g_end < 0.11) = 0.000001;
+b_end(b_end < 0.11) = 0.000001;
+final_matrix = cat(3,g_end,b_end);
+formulas_value = harmmean(final_matrix, 3);
+
 % threshold determined empirically
 threshhold = 0.29;
 % binarize image using threshold
