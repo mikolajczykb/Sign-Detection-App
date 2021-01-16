@@ -13,17 +13,18 @@ clear; clc;
 threshold_blue = 0.65;
 threshold_red = 0.5;
 
-% number of images in learning set
-num_of_refs = 4;
+% indexes of images in learning set
+start_index_of_refs = 1;
+end_index_of_refs = 14;
 
 info_ref_coeffs = [];
-for i=0:num_of_refs-1
-    fname = sprintf('images/info%d.png', i);
+for i=start_index_of_refs:end_index_of_refs
+    fname = sprintf('images/infos/info%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
     info_signs = detect_blue_signs(im_cpy,threshold_blue); % detecting potential information signs
     info_ref_coeffs = [info_ref_coeffs; geom_coeffs(info_signs)]; % calculate geometry coefficients
-%     subplot(2,2,i+1); imshow(info_signs);
+    subplot(4,14,i); imshow(info_signs);
 end
 info_ref_coeffs
 
@@ -35,13 +36,13 @@ info_ref_coeffs
 % subplot(2,2,2); imshow(regul_signs);
 
 regul_ref_coeffs = [];
-for i=0:num_of_refs-1
-    fname = sprintf('images/regul%d.png', i);
+for i=start_index_of_refs:end_index_of_refs
+    fname = sprintf('images/reguls/regul%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
     regul_signs = detect_blue_signs(im_cpy,threshold_blue); % detecting potential regulatory signs
     regul_ref_coeffs = [regul_ref_coeffs; geom_coeffs(regul_signs)]; % calculate geometry coefficients
-%     subplot(2,2,i+1); imshow(regul_signs);
+    subplot(4,14,14+i); imshow(regul_signs);
 end
 regul_ref_coeffs
 
@@ -52,13 +53,13 @@ regul_ref_coeffs
 % subplot(2,2,3); imshow(warn_signs);
 
 warn_ref_coeffs = [];
-for i=0:num_of_refs-1
-    fname = sprintf('images/warn%d.png', i);
+for i=start_index_of_refs:end_index_of_refs
+    fname = sprintf('images/warns/warn%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
     warn_signs = detect_red_signs(im_cpy,threshold_red); % detecting potential regulatory signs
     warn_ref_coeffs = [warn_ref_coeffs; geom_coeffs(warn_signs)]; % calculate geometry coefficients
-%     subplot(2,2,i+1); imshow(warn_signs);
+    subplot(4,14,28+i); imshow(warn_signs);
 end
 warn_ref_coeffs
 
@@ -69,19 +70,19 @@ warn_ref_coeffs
 % 
 
 proh_ref_coeffs = [];
-for i=0:num_of_refs-1
-    fname = sprintf('images/proh%d.png', i);
+for i=start_index_of_refs:end_index_of_refs
+    fname = sprintf('images/prohs/proh%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
     proh_signs = detect_red_signs(im_cpy,threshold_red); % detecting potential regulatory signs
     proh_ref_coeffs = [proh_ref_coeffs; geom_coeffs(proh_signs)]; % calculate geometry coefficients
-%     subplot(2,2,i+1); imshow(proh_signs);
+    subplot(4,14,42+i); imshow(proh_signs);
 end
 proh_ref_coeffs
 
 
 
-test_im = double(imread('images/test9.png'));
+test_im = double(imread('images/tests/test10.png'));
 test_coeffs = [];
 % break_row = [0,0,0,0,0,0,0,0,0];
 % blue signs
@@ -96,7 +97,7 @@ test_coeffs = [geom_coeffs(test_blue_ver)];
 % for i = 1 : sz(1)
 %    test_coeffs = [test_coeffs; blue_coeffs(i,:) 1];
 % end
-
+figure;
 % test_coeffs = [test_coeffs;break_row];
 subplot(2,1,1); imshow(test_blue_ver);
 % red signs
@@ -121,7 +122,8 @@ test_coeffs
 %16 kolumn
 trainin = transpose([info_ref_coeffs; regul_ref_coeffs; warn_ref_coeffs; proh_ref_coeffs]);
 %tez 16 kolumn, ale 4 wiersze poniewaz mamy 4 rodzaje znakow
-trainout = [repmat([1;0;0;0], 1, 4), repmat([0;1;0;0], 1, 4), repmat([0;0;1;0], 1, 4), repmat([0;0;0;1], 1, 4)];
+num = end_index_of_refs - start_index_of_refs + 1;
+trainout = [repmat([1;0;0;0], 1, num), repmat([0;1;0;0], 1, num), repmat([0;0;1;0], 1, num), repmat([0;0;0;1], 1, num)];
 
 
 nn = feedforwardnet;

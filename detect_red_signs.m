@@ -20,7 +20,7 @@ my_bin(formulas_value > threshold) = 0;
 % subplot(2,3,4); imshow(my_bin);
 
 % noise reduction
-my_bin = bwareaopen(my_bin, 100);
+my_bin = bwareaopen(my_bin, 150);
 % dilatation to reduce signs' inner part
 bin_info = bwmorph(my_bin, 'dilate', 10);
 % bin_info = my_bin;
