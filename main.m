@@ -81,19 +81,51 @@ proh_ref_coeffs
 
 
 
-test_im = double(imread('images/test5.png'));
+test_im = double(imread('images/test9.png'));
 test_coeffs = [];
-break_row = [0,0,0,0,0,0,0,0];
+% break_row = [0,0,0,0,0,0,0,0,0];
 % blue signs
 im_cpy = test_im;
 test_blue_ver = detect_blue_signs(im_cpy,threshold_blue);
-test_coeffs = [test_coeffs;geom_coeffs(test_blue_ver)];
-test_coeffs = [test_coeffs;break_row];
+test_coeffs = [geom_coeffs(test_blue_ver)];
+
+% tutaj probowalem dodac te wspolczynniki
+% blue_coeffs = [geom_coeffs(test_blue_ver)];
+% sz = size(blue_coeffs);
+% test_coeffs = [];
+% for i = 1 : sz(1)
+%    test_coeffs = [test_coeffs; blue_coeffs(i,:) 1];
+% end
+
+% test_coeffs = [test_coeffs;break_row];
 subplot(2,1,1); imshow(test_blue_ver);
 % red signs
 im_cpy = test_im;
 test_red_ver = detect_red_signs(im_cpy,threshold_red);
+
+% tutaj zas czerwone
+% red_coeffs = geom_coeffs(test_red_ver);
+% sz = size(red_coeffs);
+% for i = 1 : sz(1)
+%    test_coeffs = [test_coeffs; red_coeffs(i,:) 0];
+% end
+
 test_coeffs = [test_coeffs;geom_coeffs(test_red_ver)];
+% test_coeffs = [test_coeffs; red_coeffs];
 subplot(2,1,2); imshow(test_red_ver);
 
 test_coeffs
+% z ukladaniem wspolczynnikow wzdluz kolumn zamiast wierszy to inspirowalem
+% sie labkami jezusa
+%kazda kolumna przechowuje wspolczynniki kolejnych obiektow, 16 obiektow -
+%16 kolumn
+trainin = transpose([info_ref_coeffs; regul_ref_coeffs; warn_ref_coeffs; proh_ref_coeffs]);
+%tez 16 kolumn, ale 4 wiersze poniewaz mamy 4 rodzaje znakow
+trainout = [repmat([1;0;0;0], 1, 4), repmat([0;1;0;0], 1, 4), repmat([0;0;1;0], 1, 4), repmat([0;0;0;1], 1, 4)];
+
+
+nn = feedforwardnet;
+nn = train(nn, trainin, trainout);
+
+%transpozycja zeby wspolczynniki byly ulozone wzdluz kolumn, nie wierszy
+nn(transpose(test_coeffs))
