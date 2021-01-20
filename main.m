@@ -15,7 +15,7 @@ threshold_red = 0.5;
 
 % indexes of images in learning set
 start_index_of_refs = 1;
-end_index_of_refs = 14;
+end_index_of_refs = 27;
 
 info_ref_coeffs = [];
 for i=start_index_of_refs:end_index_of_refs
@@ -24,7 +24,7 @@ for i=start_index_of_refs:end_index_of_refs
     im_cpy = im;
     info_signs = detect_blue_signs(im_cpy,threshold_blue); % detecting potential information signs
     info_ref_coeffs = [info_ref_coeffs; geom_coeffs(info_signs)]; % calculate geometry coefficients
-    subplot(4,14,i); imshow(info_signs);
+    subplot(4,27,i); imshow(info_signs);
 end
 info_ref_coeffs
 
@@ -42,7 +42,7 @@ for i=start_index_of_refs:end_index_of_refs
     im_cpy = im;
     regul_signs = detect_blue_signs(im_cpy,threshold_blue); % detecting potential regulatory signs
     regul_ref_coeffs = [regul_ref_coeffs; geom_coeffs(regul_signs)]; % calculate geometry coefficients
-    subplot(4,14,14+i); imshow(regul_signs);
+    subplot(4,27,27+i); imshow(regul_signs);
 end
 regul_ref_coeffs
 
@@ -59,7 +59,7 @@ for i=start_index_of_refs:end_index_of_refs
     im_cpy = im;
     warn_signs = detect_red_signs(im_cpy,threshold_red); % detecting potential regulatory signs
     warn_ref_coeffs = [warn_ref_coeffs; geom_coeffs(warn_signs)]; % calculate geometry coefficients
-    subplot(4,14,28+i); imshow(warn_signs);
+    subplot(4,27,54+i); imshow(warn_signs);
 end
 warn_ref_coeffs
 
@@ -76,13 +76,13 @@ for i=start_index_of_refs:end_index_of_refs
     im_cpy = im;
     proh_signs = detect_red_signs(im_cpy,threshold_red); % detecting potential regulatory signs
     proh_ref_coeffs = [proh_ref_coeffs; geom_coeffs(proh_signs)]; % calculate geometry coefficients
-    subplot(4,14,42+i); imshow(proh_signs);
+    subplot(4,27,81+i); imshow(proh_signs);
 end
 proh_ref_coeffs
 
 
 
-test_im = double(imread('images/tests/test10.png'));
+test_im = double(imread('images/tests/test5.png'));
 test_coeffs = [];
 % break_row = [0,0,0,0,0,0,0,0,0];
 % blue signs
@@ -120,14 +120,23 @@ test_coeffs
 % sie labkami jezusa
 %kazda kolumna przechowuje wspolczynniki kolejnych obiektow, 16 obiektow -
 %16 kolumn
-trainin = transpose([info_ref_coeffs; regul_ref_coeffs; warn_ref_coeffs; proh_ref_coeffs]);
+trainin = transpose([info_ref_coeffs; regul_ref_coeffs;proh_ref_coeffs; warn_ref_coeffs;]);
 %tez 16 kolumn, ale 4 wiersze poniewaz mamy 4 rodzaje znakow
 num = end_index_of_refs - start_index_of_refs + 1;
-trainout = [repmat([1;0;0;0], 1, num), repmat([0;1;0;0], 1, num), repmat([0;0;1;0], 1, num), repmat([0;0;0;1], 1, num)];
+trainout = [repmat([1;0;0;0], 1, num), repmat([0;1;0;0], 1, 2*num), repmat([0;0;1;0], 1, num)];
 
 
 nn = feedforwardnet;
 nn = train(nn, trainin, trainout);
 
 %transpozycja zeby wspolczynniki byly ulozone wzdluz kolumn, nie wierszy
-nn(transpose(test_coeffs))
+result=nn(transpose(test_coeffs))
+if abs(1-result(1))<0.2
+    fprintf("Rozpoznano znak informacyjny")
+end
+if abs(1-result(2))<0.2
+    fprintf("Rozpoznano znak nakazu lub zakazu")
+end
+if abs(1-result(3))<0.2
+    fprintf("Rozpoznano znak ostrzegawczy")
+end

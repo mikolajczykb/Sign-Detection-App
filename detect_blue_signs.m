@@ -15,14 +15,21 @@ my_bin = rgb2gray(im);
 % formula to take information signs by color
 formulas_value = (r+g)./(2.*b);
 % binarize image using threshold
+
 my_bin(formulas_value <= threshold) = 255;
 my_bin(formulas_value > threshold) = 0;
 % subplot(2,3,4); imshow(my_bin);
 
 % noise reduction
-my_bin = bwareaopen(my_bin, 100);
+bin_info=my_bin;
+numberOfPixels = numel(my_bin);
 % dilatation to reduce signs' inner part
-bin_info = bwmorph(my_bin, 'dilate', 10);
+% bin_info = bwmorph(my_bin, 'dilate', 10);
+bin_info = imfill(my_bin,'holes');
+bin_info = bwareaopen(bin_info, round(numberOfPixels/100));
+bin_info = bwmorph(bin_info, 'dilate', 3);
+bin_info= imfill(bin_info,'holes');
+
 % bin_info = my_bin;
 % subplot(2,3,5); imshow(bin_info);
 

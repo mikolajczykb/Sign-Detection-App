@@ -10,7 +10,7 @@ n = max(l,[],'all');
 
 % preparing region props and the most valuable coefficients
 a = regionprops(im,'all');
-fun = {@AO5RBlairBliss,@AO5RMalinowska,@AO5RShape,@AO5RHaralick,@AO5RCircularityS,@AO5RCircularityL,@AO5RFeret,@AO5RDanielsson};
+fun = {@AO5RMalinowska,@AO5RShape,@AO5RHaralick,@AO5RCircularityS,@AO5RCircularityL,@AO5RFeret,@AO5RDanielsson};
 
 % calculate coefficients
 coeffs = zeros(n, length(fun));
