@@ -12,7 +12,7 @@ b = im(:,:,3);
 
 % transforming image to 1-dimension gray scale
 my_bin = rgb2gray(im);
-my_bin = medfilt2(my_bin, [3 3]);
+% my_bin = medfilt2(my_bin, [3 3]);
 % formula to take information signs by color
 formulas_value = (g./b)<threshold & (r./b)<threshold;
 % binarize image using threshold

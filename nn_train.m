@@ -66,37 +66,9 @@ num = end_index_of_refs - start_index_of_refs + 1;
 % trainout-set
 trainout = [repmat([1;0;0], 1, num), repmat([0;1;0], 1, num), repmat([0;0;1], 1, num)];
 
+% % creating new neural network
+nn = feedforwardnet;
+nn = train(nn, trainin, trainout);
 
-% nn = feedforwardnet;
-% nn = train(nn, trainin, trainout);
-
-% loading working 
-load('nn_2nd_best_rescue.mat');
-
-figure;
-start_index_of_tests = 1;
-end_index_of_tests = 30;
-num_of_tests = end_index_of_tests - start_index_of_tests + 1;
-for i=start_index_of_tests:end_index_of_tests
-    fname = sprintf('images/tests/test (%d).png', i);
-    test_im = double(imread(fname));
-    test_coeffs = [];
-    % blue signs
-    im_cpy = test_im;
-    test_blue_ver = detect_blue_signs(im_cpy,threshold_blue);
-    test_coeffs = [geom_coeffs(test_blue_ver)];
-    subplot(2,num_of_tests,i-start_index_of_tests+1); imshow(test_blue_ver);
-    % red signs
-    im_cpy = test_im;
-    test_red_ver = detect_red_signs(im_cpy,threshold_red);
-
-    test_coeffs = [test_coeffs;geom_coeffs(test_red_ver)];
-    subplot(2,num_of_tests,num_of_tests+i-start_index_of_tests+1); imshow(test_red_ver);
-
-%     test_coeffs;
-
-    i
-    nn(transpose(test_coeffs))
-end
-
-% save('nn.mat', 'nn');
+% saving neural network
+save('nn.mat', 'nn');
