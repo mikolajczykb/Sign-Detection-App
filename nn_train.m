@@ -1,5 +1,7 @@
 clear; clc;
 
+% script to train the neural network from scratch
+
 % thresholds
 threshold_blue = 0.65;
 threshold_red = 0.65;
@@ -9,42 +11,42 @@ start_index_of_refs = 1;
 end_index_of_refs = 26;
 
 % square shape
-info_ref_coeffs = [];
-for i=start_index_of_refs:end_index_of_refs
+square_ref_coeffs = [];
+for i = start_index_of_refs : end_index_of_refs
     fname = sprintf('images/infos/info%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
-    info_signs = detect_blue_signs(im_cpy,threshold_blue); % detecting potential information signs
-    info_ref_coeffs = [info_ref_coeffs; geom_coeffs(info_signs)]; % calculate geometry coefficients
-    subplot(5,10,i); imshow(info_signs);
+    square_signs = detect_objects("blue", im_cpy, threshold_blue); % detecting potential information signs
+    square_ref_coeffs = [square_ref_coeffs; geom_coeffs(square_signs)]; % calculate geometry coefficients
+    subplot(5,10,i); imshow(square_signs);
 end
-info_ref_coeffs
+square_ref_coeffs;
 
 % circle shape
 figure;
-regul_ref_coeffs = [];
-for i=start_index_of_refs:end_index_of_refs
+circle_ref_coeffs = [];
+for i = start_index_of_refs : end_index_of_refs
     fname = sprintf('images/reguls/regul%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
-    regul_signs = detect_blue_signs(im_cpy,threshold_blue); % detecting potential regulatory signs
-    regul_ref_coeffs = [regul_ref_coeffs; geom_coeffs(regul_signs)]; % calculate geometry coefficients
-    subplot(5,10,i); imshow(regul_signs);
+    circle_signs = detect_objects("blue", im_cpy, threshold_blue); % detecting potential regulatory signs
+    circle_ref_coeffs = [circle_ref_coeffs; geom_coeffs(circle_signs)]; % calculate geometry coefficients
+    subplot(5,10,i); imshow(circle_signs);
 end
-regul_ref_coeffs
+circle_ref_coeffs;
 
 % triangle shape
 figure;
-warn_ref_coeffs = [];
-for i=start_index_of_refs:end_index_of_refs
+triangle_ref_coeffs = [];
+for i = start_index_of_refs : end_index_of_refs
     fname = sprintf('images/warns/warn%d.png', i);
     im = double(imread(fname));
     im_cpy = im;
-    warn_signs = detect_red_signs(im_cpy,threshold_red); % detecting potential regulatory signs
-    warn_ref_coeffs = [warn_ref_coeffs; geom_coeffs(warn_signs)]; % calculate geometry coefficients
-    subplot(5,10,i); imshow(warn_signs);
+    triangle_signs = detect_objects("red", im_cpy, threshold_red); % detecting potential regulatory signs
+    triangle_ref_coeffs = [triangle_ref_coeffs; geom_coeffs(triangle_signs)]; % calculate geometry coefficients
+    subplot(5,10,i); imshow(triangle_signs);
 end
-warn_ref_coeffs
+triangle_ref_coeffs;
 
 % % circle shape - do not need due to regul-signs
 % figure;
@@ -60,7 +62,7 @@ warn_ref_coeffs
 % proh_ref_coeffs;
 
 % trainin-set
-trainin = transpose([info_ref_coeffs; regul_ref_coeffs; warn_ref_coeffs]);
+trainin = transpose([square_ref_coeffs; circle_ref_coeffs; triangle_ref_coeffs]);
 % number of testing objects
 num = end_index_of_refs - start_index_of_refs + 1;
 % trainout-set

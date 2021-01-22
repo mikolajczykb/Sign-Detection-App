@@ -10,8 +10,8 @@ n = max(l,[],'all');
 
 % preparing region props and the most valuable coefficients
 a = regionprops(im,'all');
-% fun = {@AO5RBlairBliss,@AO5RMalinowska,@AO5RShape,@AO5RHaralick,@AO5RCircularityS,@AO5RCircularityL,@AO5RFeret,@AO5RDanielsson};
 fun = {@AO5RBlairBliss,@AO5RMalinowska,@AO5RShape,@RegionPropsCircularity,@AO5RDanielsson};
+
 % calculate coefficients
 coeffs = zeros(n, length(fun));
 for i=1:n
@@ -19,15 +19,5 @@ for i=1:n
         coeffs(i,j) = fun{j}(a(i).Image);
     end
 end
-
-% mean value of coefficients
-m = mean(coeffs);
-% standard deviation of coefficients
-s = std(coeffs);
-% result normalization
-stand_normalization = (coeffs-m)./s;
-
-% showing unusual coefficients' values
-unusual_coeffs = abs(stand_normalization)>2;
 
 end

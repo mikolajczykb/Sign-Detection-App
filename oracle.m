@@ -53,9 +53,7 @@ function answer = oracle(nn_result)
         end
     elseif num_of_sign_types_detected == 0
         answer = char(zeros(1,12));
-        if strcmp(answer, '')
-            answer(1,1:12) = ' BRAK ZNAKU ';
-        end
+        answer(1,1:12) = ' BRAK ZNAKU ';
     end
 end
 
