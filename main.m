@@ -4,7 +4,7 @@ function answer_to_display = main(filename)
     threshold_blue = 0.65;
     threshold_red = 0.65;
     
-    load('nn_2nd_best_rescue.mat');
+    load('nn_final.mat');
     passed_image = double(imread(filename));
     
     % testing blue objects
