@@ -1,8 +1,8 @@
 # Sign Detection App
   
-![GitHub last commit](https://img.shields.io/github/last-commit/mikolajczykb/Football_Database_App)  
-![GitHub top language](https://img.shields.io/github/languages/top/mikolajczykb/Football_Database_App)  
-![GitHub language count](https://img.shields.io/github/languages/count/mikolajczykb/Football_Database_App)  
+![GitHub last commit](https://img.shields.io/github/last-commit/mikolajczykb/Football_Database_App)
+![GitHub top language](https://img.shields.io/github/languages/top/mikolajczykb/Football_Database_App)
+![GitHub language count](https://img.shields.io/github/languages/count/mikolajczykb/Football_Database_App)
   
 ## Project idea 
   
@@ -10,11 +10,12 @@ App allowing the user to detect four types of road signs on a photo provided by 
   
 ## Skills gained during project
   
-  -> Knowledge of image preprocessing such as:
-      Binarization
-      Image filters (Gaussian etc.)
-      Noise reduction
-      Operations such as closing, opening etc.
-  -> Usage of neural networks (feedforwardnet)
-  -> What are geometry coefficients
-  -> Creating an algorithm to single out road signs using image preprocessing and geometry coefficients
+  -> Knowledge of image preprocessing such as:  
+      Binarization  
+      Image filters (Gaussian etc.)  
+      Noise reduction  
+      Operations such as closing, opening etc.  
+  -> Usage of neural networks (feedforwardnet)  
+  -> What are geometry coefficients  
+  -> Creating an algorithm to single out road signs using image preprocessing and geometry coefficients  
+  -> Creating a proper markdown file
