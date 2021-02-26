@@ -8,6 +8,12 @@
   
 App allowing the user to detect four types of road signs on a photo provided by the user: identification, directional, informational, and regulatory. Created for a university course called "Image Analysis". The app was written 100% in Matlab. The project documentation was written in Polish due to the course restrictions.
   
+## Starting the app
+  
+  1. In the MATLAB command window inserting the command 'addpath images', to load the logo.jpg file into the app (optional)
+  2. Start the 'app1.mlapp' file, to start the Matlab App Designer
+  3. Start the App by pressing the 'Run' button
+  
 ## Skills gained during project
   
   -> Knowledge of image preprocessing such as:  
