@@ -11,10 +11,10 @@ App allowing the user to detect four types of road signs on a photo provided by 
 ## Skills gained during project
   
   -> Knowledge of image preprocessing such as:  
-      Binarization  
-      Image filters (Gaussian etc.)  
-      Noise reduction  
-      Operations such as closing, opening etc.  
+        Binarization  
+        Image filters (Gaussian etc.)  
+        Noise reduction  
+        Operations such as closing, opening etc.  
   -> Usage of neural networks (feedforwardnet)  
   -> What are geometry coefficients  
   -> Creating an algorithm to single out road signs using image preprocessing and geometry coefficients  
