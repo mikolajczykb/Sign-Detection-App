@@ -12,7 +12,7 @@ App allowing the user to detect four types of road signs on a photo provided by 
   
 ## Starting the app
   
-  1. In the MATLAB command window inserting the command 'addpath images', to load the logo.jpg file into the app (optional)
+  1. In the MATLAB command window insert the command `'addpath images'` or add the App/images path to MATLAB paths, to load the logo.jpg file into the app (optional)
   2. Start the 'app1.mlapp' file, to start the Matlab App Designer
   3. Start the App by pressing the 'Run' button
   
