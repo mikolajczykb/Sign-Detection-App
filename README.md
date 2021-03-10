@@ -31,6 +31,7 @@ App allowing the user to detect four types of road signs on a photo provided by 
 ## Team
   
 The project was made in a team consisting of:  
+  
   [Piotr Matiaszewski](https://github.com/BurningCodePieces/)  
   [Jakub Perlak](https://github.com/MrrrrFox/)  
   [Bartosz Mikołajczyk](https://github.com/mikolajczykb/)  
