@@ -27,3 +27,10 @@ App allowing the user to detect four types of road signs on a photo provided by 
   -> What are geometry coefficients  
   -> Creating an algorithm to single out road signs using image preprocessing and geometry coefficients  
   -> Creating a proper markdown file
+
+## Team
+  
+The project was made in a team consisting of:
+  [Piotr Matiaszewski](https://github.com/BurningCodePieces/)
+  [Jakub Perlak](https://github.com/MrrrFox/)
+  [Bartosz Mikołajczyk](https://github.com/mikolajczykb/)
